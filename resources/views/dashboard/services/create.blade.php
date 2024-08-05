@@ -225,23 +225,26 @@
 
                                     <h3 class="text-center my-2">صور الخدمة</h3>
 
-                                    @foreach (json_decode($data->multiImages) as $image)
-                                        <div class="col-md-3">
-                                            <div class="mb-3">
-                                                <img style="width: 200px; height: 200px; border-radius: 10px;"
-                                                    src="{{ asset('images/' . $image) }}" alt="">
-                                                <form action="{{ route('deleteImage') }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="image" value="{{ $image }}">
-                                                    <input type="hidden" name="service_id"
-                                                        value="{{ $data->id ?? '' }}">
-                                                    <button class="btn btn-danger btn-sm mt-1"
-                                                        type="submit">Delete</button>
-                                                </form>
+                                    @if ($data->multiImages)
+                                        @foreach (json_decode($data->multiImages) as $image)
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <img style="width: 200px; height: 200px; border-radius: 10px;"
+                                                        src="{{ asset('images/' . $image) }}" alt="">
+                                                    <form action="{{ route('deleteImage') }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input type="hidden" name="image"
+                                                            value="{{ $image }}">
+                                                        <input type="hidden" name="service_id"
+                                                            value="{{ $data->id ?? '' }}">
+                                                        <button class="btn btn-danger btn-sm mt-1"
+                                                            type="submit">Delete</button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @endif
                                 </div>
                         @endif
                     </div><!--end col-->
@@ -259,7 +262,7 @@
         $(document).ready(function() {
             var select = $("#type");
             var attachment = $("#attachment");
-    
+
             function type_fun() {
                 if (select.val() === '0') {
                     attachment.hide();
@@ -267,10 +270,10 @@
                     attachment.show();
                 }
             }
-    
+
             // Initial call to set the correct display state on page load
             type_fun();
-    
+
             // Add event listener to call type_fun whenever the select value changes
             select.on('change', type_fun);
         });
