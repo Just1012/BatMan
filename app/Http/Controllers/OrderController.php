@@ -6,6 +6,7 @@ use App\Models\Conversation;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderForm;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
 use App\Notifications\CustomNotification;
@@ -69,29 +70,34 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         try {
+
             $order = Order::findOrFail($id); // Find the order by ID
             $order->status = $request->input('status'); // Update the status
             $order->send_to = auth()->user()->id;
             $order->save(); // Save the changes
 
             $user = User::find($order->user_id);
+            $service = Service::where('id', $order->services_id)->first();
 
             if ($order->status == 0) {
                 $message = "قيد الانتظار";
             } elseif ($order->status == 1) {
                 $message = "قبول";
-                $conversation = Conversation::create([
-                    'customer' => $order->user_id,
-                    'engineer' => $order->send_to,
-                    'order_id' => $order->id,
-                ]);
             } elseif ($order->status == 2) {
                 $message = "رفض";
             } elseif ($order->status == 3) {
                 $message = "تم الانتهاء";
             }
 
-        
+            if($order->status == 1 && $service->type == 0){
+                $conversation = Conversation::create([
+                    'customer' => $order->user_id,
+                    'engineer' => $order->send_to,
+                    'order_id' => $order->id,
+                ]);
+            }
+
+
 
             $user->notify(new CustomNotification("حاله الطلب", $message));
             return response()->json([

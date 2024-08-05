@@ -35,6 +35,7 @@ class ServiceRequest extends FormRequest
             'image'             => 'image|mimes:jpeg,png,jpg|max:6502|required_if:id,null',
             'multiImages.*'     => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id'       => 'required|exists:categories,id',
+            'type'              => 'boolean|required'
         ];
     }
 
@@ -68,6 +69,9 @@ class ServiceRequest extends FormRequest
 
         'category_id.required'      => 'حقل فئة الخدمة مطلوب.',
         'category_id.exists'        => 'الفئة المحددة غير موجودة.',
+
+        'type.boolean'              => 'قيمة خاظئه',
+        'type.required'              => 'يجب اختيار نوع الخدمة',
     ];
 }
 

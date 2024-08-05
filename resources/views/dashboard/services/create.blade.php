@@ -176,6 +176,22 @@
                                             </div><!--end col-->
                                         @endif
 
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <h6 class="fw-semibold">النوع</h6>
+                                                <select class="js-example-basic-multiple" name="type">
+                                                    <optgroup label="اختر النوع">
+                                                        <option value="1"
+                                                            {{ $type_page == '' && $data->type == 1 ? 'selected' : '' }}>
+                                                            منتج</option>
+                                                        <option value="0"
+                                                            {{ $type_page == '' && $data->type == 0 ? 'selected' : '' }}>
+                                                            استشارة</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div><!--end col-->
+
                                         <div class="col-md-6 d-block">
                                             <div class="mb-3">
                                                 @if ($type_page == '')
