@@ -179,16 +179,24 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <h6 class="fw-semibold">النوع</h6>
-                                                <select class="js-example-basic-multiple" name="type">
-                                                    <optgroup label="اختر النوع">
-                                                        <option value="1"
-                                                            {{ $type_page == '' && $data->type == 1 ? 'selected' : '' }}>
-                                                            منتج</option>
-                                                        <option value="0"
-                                                            {{ $type_page == '' && $data->type == 0 ? 'selected' : '' }}>
-                                                            استشارة</option>
-                                                    </optgroup>
+                                                <select class="js-example-basic-multiple" name="type" id="type">
+                                                    <option value="" disabled selected>-- اختر النوع --</option>
+                                                    <option value="1"
+                                                        {{ $type_page == '' && $data->type == 1 ? 'selected' : '' }}>منتج
+                                                    </option>
+                                                    <option value="0"
+                                                        {{ $type_page == '' && $data->type == 0 ? 'selected' : '' }}>
+                                                        استشارة</option>
                                                 </select>
+                                            </div>
+                                        </div><!--end col-->
+
+                                        <div class="col-md-6">
+                                            <div class="mb-3" id="attachment" style="display: none;">
+                                                <label for="address1ControlTextarea" class="form-label">ملحقات
+                                                    المنتج</label>
+                                                <input type="file" class="form-control" name="attachmentUrl"
+                                                    id="address1ControlTextarea">
                                             </div>
                                         </div><!--end col-->
 
@@ -247,4 +255,24 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('web/assets/js/pages/select2.init.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var select = $("#type");
+            var attachment = $("#attachment");
+    
+            function type_fun() {
+                if (select.val() === '0') {
+                    attachment.hide();
+                } else if (select.val() === '1') {
+                    attachment.show();
+                }
+            }
+    
+            // Initial call to set the correct display state on page load
+            type_fun();
+    
+            // Add event listener to call type_fun whenever the select value changes
+            select.on('change', type_fun);
+        });
+    </script>
 @endpush

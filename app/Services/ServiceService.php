@@ -35,6 +35,8 @@ class ServiceService
                 $oldService = Service::find($requestData['id'] ?? null);
                 $oldImage = $oldService ? $oldService->image : null;
                 $oldMultiImages = $oldService ? json_decode($oldService->multiImages) : [];
+                $oldAttachmentUrl = $oldService ? $oldService->attachmentUrl : null;
+
 
                 // Handle the new single image upload
                 if ($request->hasFile('image')) {
@@ -63,6 +65,18 @@ class ServiceService
                         if (file_exists(public_path('images/' . $oldImage))) {
                             unlink(public_path('images/' . $oldImage));
                         }
+                    }
+                }
+
+                // Handle the attachment URL (PDF)
+                if ($request->hasFile('attachmentUrl')) {
+                    $pdfName = time() . '.' . $request->attachmentUrl->getClientOriginalExtension();
+                    $request->attachmentUrl->move(public_path('pdfs'), $pdfName);
+                    $requestData['attachmentUrl'] = $pdfName;
+
+                    // Delete the old PDF file if it exists
+                    if ($oldAttachmentUrl && file_exists(public_path('pdfs/' . $oldAttachmentUrl))) {
+                        unlink(public_path('pdfs/' . $oldAttachmentUrl));
                     }
                 }
 
