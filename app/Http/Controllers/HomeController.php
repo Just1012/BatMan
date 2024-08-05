@@ -97,7 +97,7 @@ class HomeController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return response()->json(['status' => 'logged out']);
+        return redirect()->route('login');
     }
     
 }

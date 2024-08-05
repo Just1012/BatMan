@@ -7,7 +7,7 @@
                 <img src="{{ asset('web/assets/images/logo-sm-light.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img style="scale: 2" src="{{ asset('web/assets/images/logo-light.png') }}" alt="" height="17">
+                <img style="scale: 5" src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="17">
             </span>
         </a>
         <!-- Light Logo-->
@@ -16,7 +16,7 @@
                 <img src="{{ asset('web/assets/images/logo-sm-dark.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img style="scale: 2" src="{{ asset('web/assets/images/logo-dark.png') }}" alt="" height="17">
+                <img style="scale: 5" src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="17">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"

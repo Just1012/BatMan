@@ -10,7 +10,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('web/assets/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('web/assets/images/unidy.png') }}">
 
     <!-- Layout config Js -->
     <script src="{{ asset('web/assets/js/layout.js') }}"></script>
@@ -49,7 +49,7 @@
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="#" class="d-inline-block auth-logo">
-                                    <img style="scale: 2.5; " src="{{ asset('web/assets/images/logo-dark.png') }}" alt="" height="20">
+                                    {{-- <img style="scale: 2.5; " src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="20"> --}}
                                 </a>
                             </div>
                             <p class="mt-3 fs-16 fw-semibold">Login</p>
@@ -64,7 +64,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
                                     <h5 class="text-primary">Welcome Back !</h5>
-                                    <p class="text-muted">Sign in to continue to Onclick.</p>
+                                    <p class="text-muted">Sign in to continue to Unidye.</p>
                                 </div>
                                 <div class="p-2 mt-4">
                                     <form method="POST" action="{{ route('login') }}">
