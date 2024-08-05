@@ -9,7 +9,7 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class ServiceService
 {
-    public function getService($category)
+    public function getService($category,$request)
     {
         $data = Service::where('category_id', $category->id)->get();
         foreach ($data as $value) {
