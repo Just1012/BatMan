@@ -25,9 +25,8 @@ class ServiceController extends Controller
         $this->CategoryServices=$CategoryServices;
     }
 
-    public function getService(Category $category){
-
-        $service = $this->ServiceService->getService($category);
+    public function getService(Category $category,Request $request){
+        $service = $this->ServiceService->getService($category,$request);
         return $this->onSuccess(200, 'Service Success', $service);
     }
     public function storeService(ServiceRequest $serviceRequest){
