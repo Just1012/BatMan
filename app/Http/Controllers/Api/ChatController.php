@@ -68,7 +68,11 @@ class ChatController extends Controller
             'body' => $request->body,
             'is_seen' => 0,
         ]);
+        return response()->json([
+        
+            'messages' => "Message sent Successfully",
+        
+        ], 200);
 
-        return response("Message sent Successfully", 200);
     }
 }
