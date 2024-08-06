@@ -49,16 +49,19 @@ class ChatController extends Controller
             'order' => $order
         ], 200);
     }
-    public function getConversationsForUser()
+    public function getConversationsForUser(Request $request)
     {
-         $conversations = Conversation::query()
-            ->where(function ($query) {
-                $query->where('customer', Auth()->user()->id)
-                    ->orWhere('engineer', Auth()->user()->id);
-            })
-            ->with('order') 
-            ->get();
-    
+        $conversations = Conversation::query()
+        ->where(function ($query) {
+            $query->where('customer', Auth::user()->id)
+                  ->orWhere('engineer', Auth::user()->id);
+        })
+        ->when($request->order_id, function ($query, $orderId) {
+            $query->where('order_id', $orderId);
+        })
+        ->with('order')
+        ->get();
+            
         $conversationMessages = collect();
     
         foreach ($conversations as $conversation) {
