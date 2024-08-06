@@ -52,18 +52,23 @@ class ChatController extends Controller
     public function getConversationsForUser(Request $request)
     {
         $conversations = Conversation::query()
-        ->where(function ($query) {
-            $query->where('customer', Auth::user()->id)
-                  ->orWhere('engineer', Auth::user()->id);
-        })
-        ->when($request->order_id, function ($query, $orderId) {
-            $query->where('order_id', $orderId);
-        })
-        ->with('order')
-        ->get();
-            
+            ->where(function ($query) {
+                $query->where('customer', Auth::user()->id)
+                    ->orWhere('engineer', Auth::user()->id);
+            })
+            ->when($request->order_id, function ($query, $orderId) {
+                $query->where('order_id', $orderId);
+            })
+            ->when($request->status, function ($query, $status) {
+                $query->whereHas('order', function ($query) use ($status) {
+                    $query->where('status', $status);
+                });
+            })
+            ->with('order')
+            ->get();
+
         $conversationMessages = collect();
-    
+
         foreach ($conversations as $conversation) {
             $lastMessage = Messages::where('conversation_id', $conversation->id)
                 ->latest()
@@ -74,14 +79,14 @@ class ChatController extends Controller
                 $conversationMessages->push($conversation->order);
             }
         }
-    
-         $conversationMessages = $conversationMessages->sortByDesc("lastMessageTime");
-    
+
+        $conversationMessages = $conversationMessages->sortByDesc("lastMessageTime");
+
         return response()->json([
             'data' => $conversationMessages->values(),
         ], 200);
     }
-    
+
 
 
     public function sendMessage(Request $request)
