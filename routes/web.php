@@ -115,6 +115,8 @@ Route::prefix('setting')->middleware(['auth','ensureSessionIsActive'])->group(fu
 Route::prefix('chat')->middleware(['auth','ensureSessionIsActive'])->group(function () {
     Route::get('/index/{id}', [ChatController::class, 'index'])->name('chat.index');
     Route::post('/send', [ChatController::class, 'sendMessage'])->name('send.message');
+    Route::get('/lockChat/{id}', [ChatController::class, 'lockChat'])->name('chat.lock'); // update order status to lock chat
+
     // Route::get('/edit/{setting}', [SettingController::class, 'edit'])->name('setting.edit');
     // Route::get('/terms/edit', [SettingController::class, 'editTerms'])->name('terms.editTerms');
     // Route::post('/terms/update', [SettingController::class, 'updateTerms'])->name('terms.updateTerms');

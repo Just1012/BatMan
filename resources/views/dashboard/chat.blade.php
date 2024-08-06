@@ -126,7 +126,7 @@
                                                             <div class="d-flex align-items-center">
                                                                 <div
                                                                     class="flex-shrink-0 chat-user-img online user-own-img align-self-center me-3 ms-0">
-                                                                    <img src="{{ asset('images/'.$order->services->image) }}"
+                                                                    <img src="{{ asset('images/' . $order->services->image) }}"
                                                                         class="rounded-circle avatar-xs" alt="">
                                                                     <span class="user-status"></span>
                                                                 </div>
@@ -150,7 +150,7 @@
                                                 <div class="col-sm-8 col-4">
                                                     <ul class="list-inline user-chat-nav text-end mb-0">
                                                         <li class="list-inline-item m-0">
-                                                            <div class="dropdown">
+                                                            {{-- <div class="dropdown">
                                                                 <button class="btn btn-ghost-secondary btn-icon"
                                                                     type="button" data-bs-toggle="dropdown"
                                                                     aria-haspopup="true" aria-expanded="false">
@@ -169,41 +169,64 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </li>
 
                                                         <li class="list-inline-item d-none d-lg-inline-block m-0">
-                                                            <button type="button"
+                                                            {{-- <button type="button"
                                                                 class="btn btn-ghost-secondary btn-icon"
                                                                 data-bs-toggle="offcanvas"
                                                                 data-bs-target="#userProfileCanvasExample"
                                                                 aria-controls="userProfileCanvasExample">
                                                                 <i data-feather="info" class="icon-sm"></i>
-                                                            </button>
+                                                            </button> --}}
+                                                            <a href="{{ route('order.index') }}"
+                                                                class="btn btn-secondary">الخروج من المحادثة</a>
                                                         </li>
 
                                                         <li class="list-inline-item m-0">
                                                             <div class="dropdown">
-                                                                <button class="btn btn-ghost-secondary btn-icon"
-                                                                    type="button" data-bs-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <i data-feather="more-vertical" class="icon-sm"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <a class="dropdown-item d-block d-lg-none user-profile-show"
-                                                                        href="#"><i
-                                                                            class="ri-user-2-fill align-bottom text-muted me-2"></i>
-                                                                        View Profile</a>
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="ri-inbox-archive-line align-bottom text-muted me-2"></i>
-                                                                        Archive</a>
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="ri-mic-off-line align-bottom text-muted me-2"></i>
-                                                                        Muted</a>
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="ri-delete-bin-5-line align-bottom text-muted me-2"></i>
-                                                                        Delete</a>
+                                                                <a href="#"
+                                                                    class="btn btn-danger {{ $order->status == 3 ? 'disabled' : '' }}"
+                                                                    data-bs-toggle="modal" data-bs-target="#topmodal"
+                                                                    data-order-id="{{ $order->id }}">
+                                                                    {{ $order->status == 3 ? 'تم  انهاء المحادثه' : 'انهاء المحادثة' }}
+                                                                </a>
+                                                                {{-- start modal  --}}
+                                                                <div id="topmodal" class="modal fade" tabindex="-1"
+                                                                    aria-hidden="true" style="display: none;">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-body text-center p-5">
+                                                                                <lord-icon
+                                                                                    src="https://cdn.lordicon.com/pdwpcpva.json"
+                                                                                    trigger="loop" state="in-reveal"
+                                                                                    style="width:250px;height:250px">
+                                                                                </lord-icon>
+                                                                                <div class="mt-4">
+                                                                                    <h4 class="mb-3">هل انت متاكد من غلق
+                                                                                        المحادثة ؟</h4>
+                                                                                    <p class="text-muted mb-4">فى حال غلق
+                                                                                        المحادثة لايمكن الارسال مره اخري.
+                                                                                    </p>
+                                                                                    <div
+                                                                                        class="hstack gap-2 justify-content-center">
+                                                                                        <a href="javascript:void(0);"
+                                                                                            class="btn btn-link link-success fw-medium"
+                                                                                            data-bs-dismiss="modal"><i
+                                                                                                class="ri-close-line me-1 align-middle"></i>
+                                                                                            خروج</a>
+                                                                                        <a href="javascript:void(0);"
+                                                                                            id="delete-confirm"
+                                                                                            class="btn btn-danger">غلق
+                                                                                            المحادثة</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div><!-- /.modal-content -->
+                                                                    </div><!-- /.modal-dialog -->
                                                                 </div>
+                                                                <!-- /.modal -->
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -233,8 +256,7 @@
                                                                             class="dropdown align-self-start message-box-drop">
                                                                             <a class="dropdown-toggle" href="#"
                                                                                 role="button" data-bs-toggle="dropdown"
-                                                                                aria-haspopup="true"
-                                                                                aria-expanded="false">
+                                                                                aria-haspopup="true" aria-expanded="false">
                                                                                 <i class="ri-more-2-fill"></i>
                                                                             </a>
                                                                             <div class="dropdown-menu">
@@ -452,33 +474,22 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="row g-0 align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="chat-input-links me-2">
-                                                        <div class="links-list-item">
-                                                            <button type="button"
-                                                                class="btn btn-link text-decoration-none emoji-btn"
-                                                                id="emoji-btn">
-                                                                <i class="bx bx-smile align-middle"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <input type="text" name="conversation_id"
                                                     value="{{ $conversations->first()->id }}" hidden>
                                                 <div class="col">
                                                     <div class="chat-input-feedback">
                                                         Please Enter a Message
                                                     </div>
-                                                    <input type="text"
-                                                        class="form-control  bg-light border-light"
-                                                        id="chat-input" placeholder="Type your message..."
-                                                        autocomplete="off" name="body">
+                                                    <input {{ $order->status == 3 ? 'disabled' : '' }} type="text"
+                                                        class="form-control  bg-light border-light" id="chat-input"
+                                                        placeholder="Type your message..." autocomplete="off"
+                                                        name="body">
                                                 </div>
                                                 <div class="col-auto">
                                                     <div class="chat-input-links ms-2">
                                                         <div class="links-list-item">
-                                                            <button type="submit"
+                                                            <button {{ $order->status == 3 ? 'disabled' : '' }}
+                                                                type="submit"
                                                                 class="btn btn-success  waves-effect waves-light">
                                                                 <i class="ri-send-plane-2-fill align-bottom"></i>
                                                             </button>
@@ -487,7 +498,6 @@
                                                 </div>
                                             </div>
                                         </form>
-
                                     </div>
 
                                     <div class="replyCard">
@@ -530,5 +540,24 @@
 
     <!-- chat init js -->
     <script src="{{ asset('web/assets/js/pages/chat.init.js') }}"></script>
-   
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Modal show event listener
+            $('#topmodal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var id = button.data('order-id'); // Extract info from data-order-id attribute
+
+                // Update the delete button href attribute
+                var deleteUrl = '{{ route('chat.lock', ':id') }}'; // Use the route with a placeholder
+                deleteUrl = deleteUrl.replace(':id', id); // Replace placeholder with actual ID
+                $('#delete-confirm').attr('href', deleteUrl); // Set the href attribute
+            });
+        });
+    </script>
 @endpush

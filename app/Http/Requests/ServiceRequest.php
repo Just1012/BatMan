@@ -36,7 +36,7 @@ class ServiceRequest extends FormRequest
             'multiImages.*'     => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id'       => 'required|exists:categories,id',
             'type'              => 'boolean|required',
-            'attachmentUrl' => 'required_if:type,1|mimes:pdf|max:10048'
+            'attachmentUrl'     => 'nullable|mimes:pdf|max:10048'
         ];
     }
 
@@ -74,7 +74,6 @@ class ServiceRequest extends FormRequest
             'type.boolean'              => 'قيمة خاظئه',
             'type.required'              => 'يجب اختيار نوع الخدمة',
 
-            'attachmentUrl.required_if' => 'حقل المرفقات مطلوب إذا كان نوع الخدمة منتج.',
             'attachmentUrl.mimes'       => 'يجب أن يكون الملف من نوع: pdf.',
             'attachmentUrl.max'         => 'يجب أن يكون حجم الملف أقل من :max كيلوبايت.',
 

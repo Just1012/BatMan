@@ -5,8 +5,14 @@
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('web/mycss/mycss.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 @endpush
 @section('content')
+    <style>
+        .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice__display {
+            color: #000;
+        }
+    </style>
     <div class="main-content">
         <div class="page-content">
             <div class="row">
@@ -106,8 +112,8 @@
                                             <div class="mb-3">
                                                 <label for="address1ControlTextarea" class="form-label">الصورة
                                                     الرئيسية</label>
-                                                <input type="file" class="form-control" name="image"
-                                                    value="{{ isset($data->image) ? $data->image : old('image') ?? '' }}"
+                                                <input type="file" class="form-control dropify" name="image"
+                                                    data-default-file="{{ isset($data->image) ? asset('images/' . $data->image) : '' }}"
                                                     id="address1ControlTextarea">
                                             </div>
                                         </div><!--end col-->
@@ -116,7 +122,7 @@
                                             <div class="mb-3">
                                                 <label for="address1ControlTextarea" class="form-label">إضافة العديد من
                                                     الصور الفرعية</label>
-                                                <input multiple type="file" class="form-control" name="multiImages[]"
+                                                <input multiple type="file" class="form-control dropify" name="multiImages[]"
                                                     value="{{ isset($data->multiImages) ? $data->multiImages : old('multiImages') ?? '' }}"
                                                     id="address1ControlTextarea">
                                             </div>
@@ -195,19 +201,13 @@
                                             <div class="mb-3" id="attachment" style="display: none;">
                                                 <label for="address1ControlTextarea" class="form-label">ملحقات
                                                     المنتج</label>
-                                                <input type="file" class="form-control" name="attachmentUrl"
-                                                    id="address1ControlTextarea">
+                                                <input type="file" class="form-control dropify" name="attachmentUrl"
+                                                    id="address1ControlTextarea"
+                                                    data-default-file="{{ isset($data->attachmentUrl) ? asset('images/' . $data->attachmentUrl) : '' }}">
                                             </div>
                                         </div><!--end col-->
 
-                                        <div class="col-md-6 d-block">
-                                            <div class="mb-3">
-                                                @if ($type_page == '')
-                                                    <img style="width: 200px; hieght:200px; border-radius: 10px;"
-                                                        src="{{ asset('images/' . $data->image) }}" alt="">
-                                                @endif
-                                            </div>
-                                        </div><!--end col-->
+
 
                                         <div class="col-lg-12">
                                             <div class="text-center">
@@ -227,7 +227,7 @@
 
                                     @if ($data->multiImages)
                                         @foreach (json_decode($data->multiImages) as $image)
-                                            <div class="col-md-3">
+                                            <div class="col-md-6 col-lg-3">
                                                 <div class="mb-3">
                                                     <img style="width: 200px; height: 200px; border-radius: 10px;"
                                                         src="{{ asset('images/' . $image) }}" alt="">
@@ -258,6 +258,18 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('web/assets/js/pages/select2.init.js') }}"></script>
+    <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+
+    <script>
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong happened.'
+            }
+        });
+    </script>
     <script>
         $(document).ready(function() {
             var select = $("#type");

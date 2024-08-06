@@ -61,11 +61,6 @@ class ServiceService
 
                     // Merge new multi images with old multi images and delete old images
                     $requestData['multiImages'] = json_encode(array_merge($oldMultiImages, $data));
-                    foreach ($oldMultiImages as $oldImage) {
-                        if (file_exists(public_path('images/' . $oldImage))) {
-                            unlink(public_path('images/' . $oldImage));
-                        }
-                    }
                 }
 
                 // Handle the attachment URL (PDF)
@@ -126,14 +121,6 @@ class ServiceService
             return 'أعد المحاولة';
         }
     }
-
-
-
-
-
-
-
-
 
 
     public function updateStatus($service)

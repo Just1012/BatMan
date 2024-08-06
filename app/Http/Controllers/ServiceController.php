@@ -21,23 +21,22 @@ class ServiceController extends Controller
     protected $CategoryServices;
 
 
-    public function __construct(ServiceService $ServiceService,CategoryServices $CategoryServices, FieldsService $FieldsService)
+    public function __construct(ServiceService $ServiceService, CategoryServices $CategoryServices, FieldsService $FieldsService)
     {
-        $this->FieldsService=$FieldsService;
+        $this->FieldsService = $FieldsService;
         $this->ServiceService = $ServiceService;
-        $this->CategoryServices=$CategoryServices;
-        $this->middleware(['auth','admin']);
-
+        $this->CategoryServices = $CategoryServices;
+        $this->middleware(['auth', 'admin']);
     }
 
     public function index(Category $category)
     {
-        return view('dashboard.services.index',['category'=>$category]);
+        return view('dashboard.services.index', ['category' => $category]);
     }
 
     public function datatable($id)
     {
-        $data = Service::where('category_id',$id)->get();
+        $data = Service::where('category_id', $id)->get();
         return response()->json([
             'data' => $data,
             'message' => 'found data'
@@ -47,28 +46,26 @@ class ServiceController extends Controller
     public function create(Category $category)
     {
         $fields = $this->FieldsService->getField();
-        return view('dashboard.services.create', ['type_page'=>'create','category'=>$category ,'fields'=>$fields]);
+        return view('dashboard.services.create', ['type_page' => 'create', 'category' => $category, 'fields' => $fields]);
     }
 
     public function edit(Service $service)
     {
         $serviceField = $service->serviceFields;
-    
-        $fields = $this->FieldsService->getField();
-        $categories=$this->CategoryServices->getCategory();
-        return view('dashboard.services.create', ['type_page'=>'','data'=>$service,'category'=>$categories ,'fields'=>$fields,'serviceField'=>$serviceField]);
 
+        $fields = $this->FieldsService->getField();
+        $categories = $this->CategoryServices->getCategory();
+        return view('dashboard.services.create', ['type_page' => '', 'data' => $service, 'category' => $categories, 'fields' => $fields, 'serviceField' => $serviceField]);
     }
 
     public function store(ServiceRequest $serviceRequest)
     {
         $result = $this->ServiceService->storeService($serviceRequest);
-        return redirect()->back();
+        return redirect()->route('service.index',  $serviceRequest->category_id);
     }
-
     public function updateStatus(Service $service)
     {
-        $result=$this->ServiceService->updateStatus($service);
+        $result = $this->ServiceService->updateStatus($service);
         return response()->json([
             'message' => $result,
             'status' => '200'
@@ -76,28 +73,27 @@ class ServiceController extends Controller
     }
 
     public function deleteImage(Request $request)
-{
-    $image = $request->input('image');
-    $serviceId = $request->input('service_id');
+    {
+        $image = $request->input('image');
+        $serviceId = $request->input('service_id');
 
-    $service = Service::find($serviceId);
+        $service = Service::find($serviceId);
 
-    if ($service) {
-        $images = json_decode($service->multiImages);
-        $images = array_diff($images, [$image]);
-        $service->multiImages = json_encode(array_values($images));
-        $service->save();
+        if ($service) {
+            $images = json_decode($service->multiImages);
+            $images = array_diff($images, [$image]);
+            $service->multiImages = json_encode(array_values($images));
+            $service->save();
 
-        // Delete the image file from the file system
-        $imagePath = public_path('images/' . $image);
-        if (File::exists($imagePath)) {
-            File::delete($imagePath);
+            // Delete the image file from the file system
+            $imagePath = public_path('images/' . $image);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+
+            return redirect()->back()->with('success', 'Image deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'Service not found');
         }
-
-        return redirect()->back()->with('success', 'Image deleted successfully');
-    } else {
-        return redirect()->back()->with('error', 'Service not found');
     }
-}
-
 }
