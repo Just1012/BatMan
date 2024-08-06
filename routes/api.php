@@ -57,8 +57,6 @@ Route::group(['namespace' => 'Api'], function ($router) {
         Route::get('/user-profile', [AuthController::class, 'userProfile']);
         Route::post('/change/password', [AuthController::class, 'change_password']);
 
-
-
         // Slider Route
         Route::get('delete/account', [AuthController::class, 'delete_account']);
 
@@ -72,6 +70,7 @@ Route::group(['namespace' => 'Api'], function ($router) {
         Route::get('/getConversation/{id}', [ChatController::class, 'getConversation']);
         Route::post('/send', [ChatController::class, 'sendMessage']);
 
+        Route::get('/getConversationsForUser', [ChatController::class, 'getConversationsForUser']);
 
     });
 });
