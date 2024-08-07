@@ -130,7 +130,7 @@
                                     authUserRole != 2) ?
                                 'disabled' : '';
 
-                            if (data.status == 1 || data.status == 3 && data.services.type == 0) {
+                            if ((data.status == 1 || data.status == 3) && data.services.type == 0) {
                                 return `<button class="btn btn-success open-chat" data-id="${data.id}" ${disabled}><i class="bx bx-chat"></i> Chat</button>`;
                             } else {
                                 return `
