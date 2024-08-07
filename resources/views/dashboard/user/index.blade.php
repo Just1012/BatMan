@@ -59,6 +59,7 @@
                                         <th>اسم المستخدم</th>
                                         <th>البريد الالكترونى</th>
                                         <th> رقم الهاتف</th>
+                                        <th>  الشركة</th>
                                         <th>التحكم</th>
                                         <th>تم الانشاء فى</th>
                                     </tr>
@@ -108,6 +109,13 @@
 
                 {
                     'data': 'phone'
+                },
+
+                {
+                    'data': null,
+                    render: function(data) {
+                        return data.company ? data.company : 'لايوجد حاليا';
+                    }
                 },
 
                 {
