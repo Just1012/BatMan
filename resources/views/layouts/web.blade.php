@@ -14,7 +14,7 @@
     </script>
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('web/assets/images/favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('web/assets/images/unidy.png') }}">
 
         <!-- jsvectormap css -->
         <link href="{{ asset('web/assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />

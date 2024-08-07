@@ -122,6 +122,8 @@
                             return 'Date'; // Show Number Here
                         } else if (data == 7) {
                             return 'Date & Time'; // Show Number Here
+                        }else if(data == 8){
+                            return 'Long Text';
                         }
                     }
                 },

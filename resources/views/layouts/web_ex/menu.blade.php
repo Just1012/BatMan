@@ -4,7 +4,7 @@
         <!-- Dark Logo-->
         <a href="{{ route('home') }}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('web/assets/images/logo-sm-light.png') }}" alt="" height="22">
+                <img style="scale: 2" src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
                 <img style="scale: 5" src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="17">
@@ -13,7 +13,7 @@
         <!-- Light Logo-->
         <a href="{{ route('home') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset('web/assets/images/logo-sm-dark.png') }}" alt="" height="22">
+                <img style="scale: 2" src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
                 <img style="scale: 5" src="{{ asset('web/assets/images/unidy.png') }}" alt="" height="17">
