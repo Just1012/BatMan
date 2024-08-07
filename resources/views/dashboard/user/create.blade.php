@@ -74,6 +74,24 @@
                                         </div><!--end col-->
                                         <div class="col-md-6">
                                             <div class="mb-3">
+                                                <label for="firstNameinput" class="form-label"> الشركة </label>
+                                                <input type="text" class="form-control" name="company"
+                                                    placeholder=" رقم الهاتف"
+                                                    value="{{ isset($data->company) ? $data->company : old('company') ?? '' }}"
+                                                    id="firstNameinput">
+                                            </div>
+                                        </div><!--end col-->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="firstNameinput" class="form-label"> العنوان </label>
+                                                <input type="text" class="form-control" name="address"
+                                                    placeholder=" رقم الهاتف"
+                                                    value="{{ isset($data->address) ? $data->address : old('address') ?? '' }}"
+                                                    id="firstNameinput">
+                                            </div>
+                                        </div><!--end col-->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
                                                 <label for="firstNameinput" class="form-label">الرقم السرى</label>
                                                 <input type="password" class="form-control" name="password"
                                                     placeholder="الرقم السرى" id="firstNameinput">

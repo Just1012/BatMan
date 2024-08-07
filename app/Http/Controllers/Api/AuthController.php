@@ -61,7 +61,10 @@ class AuthController extends Controller
                 'email' => ['sometimes', 'required', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'min:6'],
                 'name' => ['required', 'string', 'max:255'],
-                'phone'=>['required', 'regex:/^\+?[0-9]+$/','max:11','min:11']
+                'phone'=>['required', 'regex:/^\+?[0-9]+$/','max:11','min:11'],
+                'company' => ['required', 'string', 'max:255'],
+                'address' => ['required', 'string'],
+
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -72,6 +75,8 @@ class AuthController extends Controller
 
             $user = User::create([
                 'email' => $request->email,
+                'company' => $request->company,
+                'address' => $request->address,
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
                 'fcm_token'=> $request->fcm_token,
