@@ -24,10 +24,17 @@ use Illuminate\Http\RedirectResponse;
 
 class OrderService
 {
-    public function getOrder_id()
+    public function getOrder_id($request)
     {
         $user = User::where('id', '=', auth()->id())->first();
-        $order = Order::with('services')->where($user->role_id == 1 ? 'user_id' : 'send_to', '=', auth()->id())->orderByDesc('created_at')
+        $order = Order::with('services')
+            ->where($user->role_id == 1 ? 'user_id' : 'send_to', '=', auth()->id())
+            ->when($request->type, function ($query, $type) {
+                $query->whereHas('services', function ($query) use ($type) {
+                    $query->where('type', $type);
+                });
+            })
+            ->orderByDesc('created_at')
             ->get();
 
         return $order;

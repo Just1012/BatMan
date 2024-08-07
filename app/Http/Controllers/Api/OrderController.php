@@ -34,10 +34,9 @@ class OrderController extends Controller
 
 
     //////////////////////////////////////////
-    public function  get_order_user()
+    public function  get_order_user(Request $request)
     {
-
-        $order = $this->OrderService->getOrder_id();
+        $order = $this->OrderService->getOrder_id($request);
         return $this->onSuccess(200, 'Orders for user Success', $order);
     }
 
