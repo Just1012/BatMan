@@ -27,7 +27,9 @@ class UpdateUserRequest extends FormRequest
             'email'     => 'nullable|email|max:255|unique:users,email,' . $this->id,
             'password'  => 'nullable|string|min:8',
             'role_id'   => 'required|exists:roles,id',
-            'phone'     => 'nullable|regex:/^\+?[0-9]+$/|unique:users,phone,' . $this->id, 
+            'phone'     => 'nullable|regex:/^\+?[0-9]+$/|unique:users,phone,' . $this->id,
+            'company'   => ['nullable', 'string', 'max:255'],
+            'address'   => ['nullable', 'string'],
         ];
     }
 
@@ -43,7 +45,12 @@ class UpdateUserRequest extends FormRequest
             'role_id.required' => 'Role ID is required',
             'role_id.exists' => 'Role not found',
             'phone.regex' => 'Phone number is not valid',
-            'phone.unique' => 'Phone number has already been taken', 
+            'phone.unique' => 'Phone number has already been taken',
+
+            'company.string'           => 'يجب أن يكون الاسم نصًا.',
+            'company.max'              => 'قد لا يكون الاسم أكبر من :max أحرف.',
+
+            'address.string'           => 'يجب أن يكون الاسم نصًا.',
         ];
     }
 }

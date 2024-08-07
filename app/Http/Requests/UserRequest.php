@@ -30,6 +30,8 @@ class UserRequest extends FormRequest
             'password'  => 'nullable|string|min:8|required_if:id,null',
             'role_id'   => 'required|exists:roles,id',
             'phone'     => ['required', 'regex:/^\+?[0-9]+$/', 'unique:users,phone'],
+            'company'   => ['nullable', 'string', 'max:255'],
+            'address'   => ['nullable', 'string'],
         ];
     }
 
@@ -59,6 +61,11 @@ class UserRequest extends FormRequest
 
             'role_id.required'      => 'حقل معرف الدور مطلوب.',
             'role_id.exists'        => 'الدور المحدد غير صالح.',
+
+            'company.string'           => 'يجب أن يكون الاسم نصًا.',
+            'company.max'              => 'قد لا يكون الاسم أكبر من :max أحرف.',
+
+            'address.string'           => 'يجب أن يكون الاسم نصًا.',
         ];
     }
 
