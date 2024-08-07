@@ -26,14 +26,14 @@ class OrderService
 {
     public function getOrder_id($request)
     {
-        $user = User::where('id', '=', auth()->id())->first();
+         $user = User::where('id', '=', auth()->id())->first();
         $order = Order::with('services')
             ->where($user->role_id == 1 ? 'user_id' : 'send_to', '=', auth()->id())
-            ->when($request->type, function ($query, $type) {
-                $query->whereHas('services', function ($query) use ($type) {
-                    $query->where('type','=' ,$type);
-                });
-            })
+              ->when($request->filled('type'), function ($query) use ($request) {
+            $query->whereHas('services', function ($query) use ($request) {
+                $query->where('type', '=', $request->type);
+            });
+        })
             ->orderByDesc('created_at')
             ->get();
 
