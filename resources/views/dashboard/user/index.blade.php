@@ -107,10 +107,14 @@
                     'data': 'email'
                 },
 
-                {
-                    'data': 'phone'
-                },
+                
 
+                {
+                    'data': null,
+                    render: function(data) {
+                        return data.phone ? data.phone : 'لايوجد حاليا';
+                    }
+                },
                 {
                     'data': null,
                     render: function(data) {

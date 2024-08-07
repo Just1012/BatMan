@@ -25,8 +25,11 @@ class DatabaseSeeder extends Seeder
             ['id'=> 1,
             'name'=> 'just',
             'email'=> 'm@a.com',
+            'phone'=> '01010239332',
             'password'=> bcrypt('12345678'),
             'role_id'=> '2',
+            'company'=> 'Just Company',
+            'address'=> 'Zag',
         ],
           ];
         DB::table('users')->insertOrIgnore($user);
