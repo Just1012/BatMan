@@ -83,12 +83,10 @@ class ChatController extends Controller
                 $conversation->order->engName =  $conversation->order->delivary->name;
 
                 $conversationMessages->push($conversation->order);
+                $conversation->order->makeHidden('services');
+                $conversation->order->makeHidden('delivary');
             }
         }
-        // Hide the 'services' attribute
-        $conversation->order->makeHidden('services');
-        $conversation->order->makeHidden('delivary');
-
         $conversationMessages = $conversationMessages->sortByDesc("lastMessageTime");
 
         return response()->json([
