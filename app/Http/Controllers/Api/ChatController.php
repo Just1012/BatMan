@@ -67,6 +67,7 @@ class ChatController extends Controller
             ->with('order')
             ->get();
 
+
         $conversationMessages = collect();
 
         foreach ($conversations as $conversation) {
@@ -76,9 +77,17 @@ class ChatController extends Controller
             if ($conversation->order) {
                 $conversation->order->lastMessage = isset($lastMessage) ? $lastMessage->body : null;
                 $conversation->order->lastMessageTime = isset($lastMessage) ? $lastMessage->created_at : $conversation->order->created_at;
+                $conversation->order->photo =  $conversation->order->services->image;
+                $conversation->order->titleAr =  $conversation->order->services->name_ar;
+                $conversation->order->titleEn =  $conversation->order->services->name_en;
+                $conversation->order->engName =  $conversation->order->delivary->name;
+
                 $conversationMessages->push($conversation->order);
             }
         }
+        // Hide the 'services' attribute
+        $conversation->order->makeHidden('services');
+        $conversation->order->makeHidden('delivary');
 
         $conversationMessages = $conversationMessages->sortByDesc("lastMessageTime");
 
