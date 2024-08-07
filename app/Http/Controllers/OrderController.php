@@ -35,7 +35,7 @@ class OrderController extends Controller
         $orders = Order::with(['services.category', 'delivary', 'usersOrder'])
             ->orderByDesc('created_at')
             ->when($value !== null, function ($query) use ($value) {
-                return $query->where('status', $value);
+                return $query->where('status','=', $value);
             })
             ->when($user->role_id == 3, function ($query) use ($user) {
                 // Fetch the categories for the authenticated user with role ID 3

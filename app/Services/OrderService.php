@@ -31,7 +31,7 @@ class OrderService
             ->where($user->role_id == 1 ? 'user_id' : 'send_to', '=', auth()->id())
             ->when($request->type, function ($query, $type) {
                 $query->whereHas('services', function ($query) use ($type) {
-                    $query->where('type', $type);
+                    $query->where('type','=' ,$type);
                 });
             })
             ->orderByDesc('created_at')

@@ -57,11 +57,11 @@ class ChatController extends Controller
                     ->orWhere('engineer', Auth::user()->id);
             })
             ->when($request->order_id, function ($query, $orderId) {
-                $query->where('order_id', $orderId);
+                $query->where('order_id','=', $orderId);
             })
             ->when($request->status, function ($query, $status) {
                 $query->whereHas('order', function ($query) use ($status) {
-                    $query->where('status', $status);
+                    $query->where('status','=', $status);
                 });
             })
             ->with('order')
