@@ -28,7 +28,7 @@ class ServiceService
     public function storeService($request)
     {
         try {
-            if ($request->price > $request->discount) {
+            if ($request->price >= $request->discount) {
 
                 $requestData = $request->except('select');
                 // Check if there is an old image
@@ -59,8 +59,11 @@ class ServiceService
                         $data[] = $imageName;
                     }
 
-                    // Merge new multi images with old multi images and delete old images
+                    // Merge new multi images with old multi images
                     $requestData['multiImages'] = json_encode(array_merge($oldMultiImages, $data));
+                } else {
+                    // Retain old images if no new images are uploaded
+                    $requestData['multiImages'] = json_encode($oldMultiImages);
                 }
 
                 // Handle the attachment URL (PDF)
@@ -80,17 +83,12 @@ class ServiceService
                     $requestData
                 );
 
-
-
-
                 $selectedFields = $request->input('select', []);
 
                 // Delete existing ServiceField records for the service that are not in the selectedFields array
                 ServiceField::where('services_id', $service->id)
                     ->whereNotIn('field_id', $selectedFields)
                     ->delete();
-
-
 
                 // Iterate through the selected fields
                 foreach ($selectedFields as $fieldId) {
@@ -108,20 +106,16 @@ class ServiceService
 
                 $successMessage = $requestData['id'] ? 'تم تعديل الخدمة بنجاح' : 'تم إضافة الخدمة بنجاح';
                 Toastr::success($successMessage, 'تم بنجاح');
-
-                return $successMessage;
             } else {
                 $successMessage = "لا يمكن الخصم اكبر من السعر";
                 Toastr::info($successMessage,  'تنبيه');
-
-                return $successMessage;
             }
+            return true;
         } catch (\Throwable $th) {
             Toastr::error('أعد المحاولة', 'خطاء');
             return 'أعد المحاولة';
         }
     }
-
 
     public function updateStatus($service)
     {

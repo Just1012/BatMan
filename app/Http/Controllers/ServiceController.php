@@ -61,7 +61,7 @@ class ServiceController extends Controller
     public function store(ServiceRequest $serviceRequest)
     {
         $result = $this->ServiceService->storeService($serviceRequest);
-        return redirect()->route('service.index',  $serviceRequest->category_id);
+        return redirect()->back();
     }
     public function updateStatus(Service $service)
     {

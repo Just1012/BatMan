@@ -205,29 +205,7 @@
             });
         });
 
-        // Delivery Dropdown Change Event
-        $(document).on('change', '.delivery-dropdown', function() {
-            var url = '{{ route('order.admin.updatedelivery', ':id') }}';
-            var orderId = $(this).data('id');
-            var newDeliveryId = $(this).val();
-            url = url.replace(':id', orderId);
 
-            $.ajax({
-                type: 'GET',
-                url: url,
-                data: {
-                    delivery_id: newDeliveryId
-                },
-                success: function(response) {
-                    toastr.success(response.message, 'تم بنجاح');
-                    table.ajax.reload(); // Reload the table to reflect changes
-                },
-                error: function() {
-                    toastr.error('أعد المحاولة', 'خطأ !');
-                    table.ajax.reload(); // Reload the table on error
-                }
-            });
-        });
 
         // Chat Button Click Event
         $(document).on('click', '.open-chat', function() {

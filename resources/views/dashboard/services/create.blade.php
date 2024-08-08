@@ -224,9 +224,9 @@
                                 <div class="row">
 
                                     <h3 class="text-center my-2">صور الخدمة</h3>
-
-                                    @if ($data->multiImages)
-                                        @foreach (json_decode($data->multiImages) as $image)
+                                    
+                                    @if ($data->multiImages != 'null')
+                                    @foreach (json_decode($data->multiImages) as $image)
                                             <div class="col-md-6 col-lg-3">
                                                 <div class="mb-3">
                                                     <img style="width: 200px; height: 200px; border-radius: 10px;"
