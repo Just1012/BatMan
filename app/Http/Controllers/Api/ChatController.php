@@ -61,7 +61,11 @@ class ChatController extends Controller
             })
             ->when($request->status, function ($query, $status) {
                 $query->whereHas('order', function ($query) use ($status) {
-                    $query->where('status','=', $status);
+if($status == 0){
+    $query->where('status','!=', 3);
+}else if ($status == 1){
+    $query->where('status','=', 3);
+}
                 });
             })
             ->with('order')
