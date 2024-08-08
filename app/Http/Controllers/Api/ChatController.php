@@ -51,22 +51,26 @@ class ChatController extends Controller
     }
     public function getConversationsForUser(Request $request)
     {
-        $conversations = Conversation::query()
-            ->where(function ($query) {
-                $query->where('customer', Auth::user()->id)
-                    ->orWhere('engineer', Auth::user()->id);
-            })
-            ->when($request->order_id, function ($query, $orderId) {
-                $query->where('order_id','=', $orderId);
-            })
-            ->when($request->status, function ($query, $status) {
-                $query->whereHas('order', function ($query) use ($status) {
-                    $query->where('status','=', $status);
-                });
-            })
-            ->with('order')
-            ->get();
 
+        $conversations = Conversation::query()
+        ->where(function ($query) {
+            $query->where('customer', Auth::user()->id)
+                  ->orWhere('engineer', Auth::user()->id);
+        })
+        ->when($request->order_id, function ($query, $orderId) {
+            $query->where('order_id', '=', $orderId);
+        })
+        ->when($request->filled('status'), function ($query) use ($request) {
+            $query->whereHas('order', function ($query) use ($request) {
+                if ($request->status == 0) {
+                    $query->where('status', '!=', 3);
+                } elseif ($request->status == 1) {
+                    $query->where('status', '=', 3);
+                }
+            });
+        })
+        ->with('order')
+        ->get();
 
         $conversationMessages = collect();
 
