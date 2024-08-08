@@ -32,7 +32,7 @@
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label for="textAreaEn" class="form-label">سياسة الخصوصية</label>
-                                                <textarea id="myeditorinstance" class="form-control" name="terms_ar" placeholder="سياسة الخصوصية"
+                                                <textarea id="myeditorinstance" class="form-control" name="terms_ar" placeholder="برجاء ادخال سياسة الخصوصصية باللغه العربية"
                                                     id="textAreaEn">{{ $terms->terms_ar ?? '' }}</textarea>
                                             </div>
                                         </div><!--end col-->
@@ -40,7 +40,7 @@
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label for="textAreaEn" class="form-label">Privacy Policy</label>
-                                                <textarea id="myeditorinstance" class="form-control" name="terms_en" placeholder="Privacy Policy"
+                                                <textarea id="myeditorinstance" class="form-control" name="terms_en" placeholder="Please Enter Privacy Policy in English"
                                                     id="textAreaEn">{{ $terms->terms_en ?? '' }}</textarea>
                                             </div>
                                         </div><!--end col-->
