@@ -82,10 +82,10 @@ class SettingController extends Controller
             $terms->terms_en = $request->terms_en;
             $terms->save();
 
-            Toastr::success(__('Privacy Policy Updated Successfully'), __('Success'));
+            toastr()->success(__('Privacy Policy Updated Successfully'), __('Success'));
             return redirect()->back();
         } catch (\Exception $e) {
-            Toastr::error(__('An error occurred. Try Again'), __('Error'));
+            toastr()->error(__('An error occurred. Try Again'), __('Error'));
             return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
         }
     }

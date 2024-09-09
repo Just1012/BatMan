@@ -51,11 +51,11 @@ class UserService
             }
 
             $successMessage = $requestData['id'] ? 'تم تعديل المستخدم بنجاح' : 'تم إضافة المستخدم بنجاح';
-            Toastr::success($successMessage, 'تم بنجاح');
+            toastr()->success($successMessage, 'تم بنجاح');
 
             return [$successMessage, $user['role_id']];
         } catch (\Throwable $th) {
-            Toastr::error('أعد المحاولة', 'خطاء');
+            toastr()->error('أعد المحاولة', 'خطاء');
             return 'أعد المحاولة';
         }
     }

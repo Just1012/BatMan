@@ -83,14 +83,14 @@ class ChatController extends Controller
             } else {
                 $order->status = 3;
                 $order->save();
-                Toastr::success(__('تم غلق المحادثة بنجاح'), __('تم بنجاح'));
+                toastr()->success(__('تم غلق المحادثة بنجاح'), __('تم بنجاح'));
                 return redirect()->back();
             }
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Chat Not Found'), __('Error'));
+            toastr()->error(__('Chat Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

@@ -32,11 +32,11 @@ class CategoryServices
             );
 
             $successMessage = $requestData['id'] ? 'تم تعديل الفئة بنجاح' : 'تم إضافة الفئة بنجاح';
-            Toastr::success($successMessage, 'تم بنجاح');
+            toastr()->success($successMessage, 'تم بنجاح');
 
             return $successMessage;
         } catch (\Throwable $th) {
-            Toastr::error('أعد المحاولة', 'خطاء');
+            toastr()->error('أعد المحاولة', 'خطاء');
             return 'أعد المحاولة';
         }
     }

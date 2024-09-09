@@ -105,14 +105,14 @@ class ServiceService
                 }
 
                 $successMessage = $requestData['id'] ? 'تم تعديل الخدمة بنجاح' : 'تم إضافة الخدمة بنجاح';
-                Toastr::success($successMessage, 'تم بنجاح');
+                toastr()->success($successMessage, 'تم بنجاح');
             } else {
                 $successMessage = "لا يمكن الخصم اكبر من السعر";
                 Toastr::info($successMessage,  'تنبيه');
             }
             return true;
         } catch (\Throwable $th) {
-            Toastr::error('أعد المحاولة', 'خطاء');
+            toastr()->error('أعد المحاولة', 'خطاء');
             return 'أعد المحاولة';
         }
     }

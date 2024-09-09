@@ -50,7 +50,7 @@ class SliderService
                 $requestData
             );
             $successMessage = $requestData['id'] ? 'تم تعديل الاعلان بنجاح' : 'تم إضافة الاعلان بنجاح';
-            Toastr::success($successMessage, 'تم بنجاح');
+            toastr()->success($successMessage, 'تم بنجاح');
 
             return $successMessage;
 

@@ -25,7 +25,7 @@ class FieldsService
             }
         }
 if (isset($requestData['id']) && ($requestData['id'] == 6 || $requestData['id'] == 7 || $requestData['id'] == 8)) {
-         Toastr::error('أعد المحاولة', 'خطاء');
+         toastr()->error('أعد المحاولة', 'خطاء');
         return 'أعد المحاولة';
 }else{
     
@@ -35,7 +35,7 @@ if (isset($requestData['id']) && ($requestData['id'] == 6 || $requestData['id'] 
         );
 
         $successMessage = $requestData['id'] ? 'تم تعديل الحقل بنجاح' : 'تم إضافة الحقل بنجاح';
-        Toastr::success($successMessage, 'تم بنجاح');
+        toastr()->success($successMessage, 'تم بنجاح');
 
         return [$successMessage,$data];
     
@@ -43,7 +43,7 @@ if (isset($requestData['id']) && ($requestData['id'] == 6 || $requestData['id'] 
 
 
     } catch (\Throwable $th) {
-        Toastr::error('أعد المحاولة', 'خطاء');
+        toastr()->error('أعد المحاولة', 'خطاء');
         return 'أعد المحاولة';
     }
 }

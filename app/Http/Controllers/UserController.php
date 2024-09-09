@@ -74,13 +74,13 @@ class UserController extends Controller
             $user = User::find($user->id);
             if ($user->id != 1) {
                 $user->delete();
-                Toastr::success('تم حذف المستخدم', 'تم بنجاح');
+                toastr()->success('تم حذف المستخدم', 'تم بنجاح');
                 return redirect()->back();
             }
             Toastr::info('لا يمكن حذف المستخدم', ' خطأ');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error('أعد المحاولة', 'خطاء');
+            toastr()->error('أعد المحاولة', 'خطاء');
             return redirect()->back();
         }
     }

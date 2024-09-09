@@ -29,7 +29,7 @@ class FieldOptionService
         
         
         if (isset($requestData['id']) && ($requestData['id'] == 3 )) {
-         Toastr::error('لا يمكن تعديل هذا الحقل', 'خطاء');
+         toastr()->error('لا يمكن تعديل هذا الحقل', 'خطاء');
         return 'أعد المحاولة';
 }else{
         
@@ -40,12 +40,12 @@ class FieldOptionService
         );
 
         $successMessage = $requestData['id'] ? 'تم تعديل الاختيارات بنجاح' : 'تم إضافة الاختيارات بنجاح';
-        Toastr::success($successMessage, 'تم بنجاح');
+        toastr()->success($successMessage, 'تم بنجاح');
 
         return $successMessage;
 }
     } catch (\Throwable $th) {
-        Toastr::error('أعد المحاولة', 'خطاء');
+        toastr()->error('أعد المحاولة', 'خطاء');
         return 'أعد المحاولة';
     }
 }

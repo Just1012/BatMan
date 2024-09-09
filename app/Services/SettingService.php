@@ -30,11 +30,11 @@ class SettingService
             );
 
             $successMessage = $requestData['id'] ? 'تم تعديل الهاتف بنجاح' : 'تم إضافة الهاتف بنجاح';
-            Toastr::success($successMessage, 'تم بنجاح');
+            toastr()->success($successMessage, 'تم بنجاح');
 
             return $successMessage;
         } catch (\Throwable $th) {
-            Toastr::error('أعد المحاولة', 'خطاء');
+            toastr()->error('أعد المحاولة', 'خطاء');
             return 'أعد المحاولة';
         }
     }

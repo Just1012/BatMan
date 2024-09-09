@@ -93,7 +93,7 @@ class ServiceRequest extends FormRequest
 
         // Display each error message with Toastr
         foreach ($errorMessages as $errorMessage) {
-            Toastr::error($errorMessage, 'Error');
+            toastr()->error($errorMessage, 'Error');
         }
 
         parent::failedValidation($validator);
