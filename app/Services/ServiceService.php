@@ -108,7 +108,7 @@ class ServiceService
                 toastr()->success($successMessage, 'تم بنجاح');
             } else {
                 $successMessage = "لا يمكن الخصم اكبر من السعر";
-                Toastr::info($successMessage,  'تنبيه');
+                toastr()->info($successMessage,  'تنبيه');
             }
             return true;
         } catch (\Throwable $th) {

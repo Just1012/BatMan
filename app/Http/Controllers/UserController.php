@@ -52,7 +52,7 @@ class UserController extends Controller
             $engineerCategory = $user->engineerCategory;
             return view('dashboard.user.create', ['type_page' => '', 'data' => $user, 'role' => $role, 'category' => $category, 'engineerCategory' => $engineerCategory]);
         }else{
-            Toastr::info('لا يمكن تعديل هذا المستخدم', ' خطأ');
+            toastr()->info('لا يمكن تعديل هذا المستخدم', ' خطأ');
             return redirect()->back();
         }
     }
@@ -77,7 +77,7 @@ class UserController extends Controller
                 toastr()->success('تم حذف المستخدم', 'تم بنجاح');
                 return redirect()->back();
             }
-            Toastr::info('لا يمكن حذف المستخدم', ' خطأ');
+            toastr()->info('لا يمكن حذف المستخدم', ' خطأ');
             return redirect()->back();
         } catch (\Throwable $th) {
             toastr()->error('أعد المحاولة', 'خطاء');

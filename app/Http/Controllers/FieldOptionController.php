@@ -47,7 +47,7 @@ class FieldOptionController extends Controller
       //  $field=$this->FieldsService->getField();
       if($fieldOption->id ==3){
            $successMessage="لا يمكن تعديل هذا لبحقل ";
-        Toastr::info($successMessage,  'تنبيه');
+        toastr()->info($successMessage,  'تنبيه');
 
           return redirect()->back(); 
       }

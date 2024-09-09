@@ -78,7 +78,7 @@ class ChatController extends Controller
 
             $order = Order::findOrFail($id);
             if ($order->status == 3) {
-                Toastr::info(__('المحادثة مغلقة بالفعل'), __('ملحوظة'));
+                toastr()->info(__('المحادثة مغلقة بالفعل'), __('ملحوظة'));
                 return redirect()->back();
             } else {
                 $order->status = 3;
